@@ -79,6 +79,7 @@ void pixMap_rotate (pixMap *p, float theta){
 
 void pixMap_gray (pixMap *p){
 	//for() loop through pixels using two for loops 
+	for(int i = 0; i < 
 	  //for()
 	    //calculate average value of r and g and b values (assign to a float variable)
 	    //for example the red value of for the pixel at height i, width j would be p->pixel[i][j].r

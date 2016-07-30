@@ -3,7 +3,22 @@
 int main(int argc, char *argv[]){
   char *inputfile=0,*outputfile=0;
   float degrees=0, grayFlag=0;
-  
+  int i = 0;
+  while(i < argc){
+	  if(argv[i] == "-i"){
+		  inputfile = argv[i+1];
+	  } 
+	  if (argv[i] == "-o"){
+		  outputfile = argv[i+1];
+	  } 
+	  if (argv[i] == "-r"){
+		  degrees = atof(argv[i+1]);
+	  } 
+	  if (argv[i] == "-g"){
+		  grayFlag = 1;
+	  }
+	  i++;
+  }
   //write the parser yourself or use a package like https://github.com/skeeto/optparse
   
 		//check for flags -i -o -r -g - can be in any order
