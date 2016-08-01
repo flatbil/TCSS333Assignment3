@@ -44,24 +44,52 @@ static int pixMap_read(pixMap *p,char *filename){
 }	
 static void pixMap_copy(pixMap *dest,pixMap *source){
 	//if source image is zero then reset dest and copy width and height
+	if(source == 0){ //how do I reset dest?
+		pixMap_reset(dest);
+	} 
 	//if source image is not zero
+	else {
 	  //if width or height are different
-	    //if width*height is different then we need to allocate dest->image
+	  if(!(dest->width == dest->height)){// different than what?
+	    //if width*height is different then we need to allocate dest->image /*allocate what?*/
+	    if(!width*height){ /*Again, different than what?*/
+			/*allocate dest->image*/
 	      //if dest->image is zero use malloc to allocate memory for dest->image
+	      if(dest->image == 0){
+			  dest->image = malloc(sizeof(/*how much do I need?*/));
+		  }
 	      //else use realloc to allocate memory dest->image
+	      else {
+			  dest->image = realloc(sizeof(/*how much?*/));
+		  }
 	    //
+		}
 	    //if dest->height is different
-	      //malloc or realloc dest->pixArray depending on whether dest->pixArray is zero
+	    if(!dest->height/*different than what?*/){
+			//malloc or realloc dest->pixArray depending on whether dest->pixArray is zero
+			dest->pixArray = malloc();
 	    //
+		}
 	    //even if the height is the same set dest->pixArray[0] to dest->image and dest->pixArray[i]=dest->pixArray[i-1]+source->width 
+	    dest->pixArray[0] = dest->image;
+	    for(int i = 1; i < source->width; i++){
+			dest->pixArray[i] = dest->pixArray[i-1]+source->width;
+		}
 	  //
+	  }
 	  //do a memcpy from source->image to dest->image
+	  memcpy(dest->image, source->image);
 	  //set dest->width and dest->height to source values
+	  dest->width = source->width;
+	  dest->height = source->height;
 	//
+	}
 }
 
 static void pixMap_reset(pixMap *p){
+	free(
 	//free all the memory in the fields and set everything to zero
+	
 }	
 
 
