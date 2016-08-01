@@ -9,17 +9,37 @@ static int pixMap_read(pixMap *p,char *filename); //read in a pixmap from file
 
 static pixMap* pixMap_init(){
  //allocate memory for pixMap object, set variables to zero, and return a pointer to the object
+ pixMap *p;
+ p = malloc(sizeof(pixMap));
+ p->hight = 0;
+ p->width = 0;
+ return p;
+ 
 }	
 pixMap* pixMap_init_filename(char *filename){
 	//use pixMap_int to create the pixMap object
 	//use pixMap read to fill the fields of the object
 	//return the pointer to the new object
+	pixMap *pix = pixMap_init();
+	pixMap_read(pix, filename);
+	return pix;
 }
 static int pixMap_read(pixMap *p,char *filename){
  //read and allocate image, read in width and height using using lodepng_decode32_file
- //example is in lodepng/examples - one liner
+  //example is in lodepng/examples - one liner
+  unsigned error;
+  error = lodepng_decode32_file(p->image, &(p->width), &(p->height), filename);
+  if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
+ 
 	//then allocate p->pixArray to hold p->height pointers
+	p->pixArray = malloc(sizeof(rgba*) * p->height);
 	//set p->pixArray[0] to p->image and p->pixArray[i]=p->pixArray[i-1]+p->width
+	
+	p->pixArray[0] = p->image;
+	for(int i =1; i < p->height; i++){
+		p->pixArray[i] = p->pixArray[i-1]+p->width;
+	}
+	
 	return 0;
 }	
 static void pixMap_copy(pixMap *dest,pixMap *source){
