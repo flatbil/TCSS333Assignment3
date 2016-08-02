@@ -50,22 +50,23 @@ static void pixMap_copy(pixMap *dest,pixMap *source){
 	//if source image is not zero
 	else {
 	  //if width or height are different
-	  if(!(dest->width == dest->height)){// different than what?
+	  if((dest->width != source->width) || (dest->height != source->height)){
 	    //if width*height is different then we need to allocate dest->image /*allocate what?*/
-	    if(!width*height){ /*Again, different than what?*/
+	    if((source->width*source->height)!=(dest->width*dest->height)){
 			/*allocate dest->image*/
+			dest->image = malloc(dest->height*dest->width*sizeof(rgba));
 	      //if dest->image is zero use malloc to allocate memory for dest->image
 	      if(dest->image == 0){
-			  dest->image = malloc(sizeof(/*how much do I need?*/));
+			  dest->image = malloc(dest->height*dest->width*sizeof(rgba));
 		  }
 	      //else use realloc to allocate memory dest->image
 	      else {
-			  dest->image = realloc(sizeof(/*how much?*/));
+			  dest->image = realloc(dest->height*dest->width*sizeof(rgba));
 		  }
 	    //
 		}
 	    //if dest->height is different
-	    if(!dest->height/*different than what?*/){
+	    if(dest->height != source->height){
 			//malloc or realloc dest->pixArray depending on whether dest->pixArray is zero
 			dest->pixArray = malloc();
 	    //
@@ -100,10 +101,15 @@ void pixMap_destroy(pixMap *p){
 
 void pixMap_rotate (pixMap *p, float theta){
  //make a new temp blank pixMap structure
+ pixMap temp; /*does this make a struct?*/
+ temp = pixMap_init();
  //copy p to temp
+ pixMap_copy();
  //set the values in the image to zero using memset - Note that the 3rd argument of memset is the size in BYTES
-
+ memset(temp, temp->image, p->hight*p->width*sizeof(rgba));
  //calculate the coordinates ox and oy of the middle of the png graphic
+ int ox = (/*find the x*/ / 2);
+ int oy = (/*find the y*/ / 2);
  //calculate the values of sine and cosine used by the rotation formula 
 
 	//for(int y=0;y<p->height;y++){   //two for loops to loop through each pixel in the original
@@ -127,14 +133,17 @@ void pixMap_rotate (pixMap *p, float theta){
 
 void pixMap_gray (pixMap *p){
 	//for() loop through pixels using two for loops 
-	for(int i = 0; i < 
+	for(int i = 0; i < /*what?*/;i++){
 	  //for()
+	  for(int j = 0; j < /*what?*/; j++){
 	    //calculate average value of r and g and b values (assign to a float variable)
 	    //for example the red value of for the pixel at height i, width j would be p->pixel[i][j].r
 	    //round float variable to integer (add 0.5 before casting to integer)
 	    //assign the rounded value to r,g and b values
 	  //
-	//   
+	  }
+	//
+	}   
 }
 int pixMap_write(pixMap *p,char *filename){
  //write out to filename using lodepng_encode32_file
