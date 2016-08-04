@@ -27,13 +27,14 @@ pixMap* pixMap_init_filename(char *filename){
 static int pixMap_read(pixMap *p,char *filename){
  //read and allocate image, read in width and height using using lodepng_decode32_file
   //example is in lodepng/examples - one liner
+  fprintf(stdout, "Hello I am in pixMap_read just before opening the input file.\nfilename is %s\n", filename);
   unsigned error;
   error = lodepng_decode32_file(p->image, &(p->width), &(p->height), filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
  
 	//then allocate p->pixArray to hold p->height pointers
 	p->pixArray = malloc(sizeof(rgba*) * p->height);
-	//set p->pixArray[0] to p->image and p->pixArray[i]=p->pixArray[i-1]+p->width
+	//set p->pixArray[0] to p->image and p->pixArray[i]=p->pixArray[i-1]+p->width  
 	
 	p->pixArray[0] = p->image;
 	for(int i =1; i < p->height; i++){
@@ -153,6 +154,7 @@ void pixMap_rotate (pixMap *p, float theta){
  	   int introty;
  	   introtx = (int) ((float)rotx + 0.5);
  	   introty = (int) ((float)roty + 0.5);	
+ 	   
 	
 	    //if old coordinates are within the height and width limits
 	    if(x-introtx > 0 && y-introty > 0){

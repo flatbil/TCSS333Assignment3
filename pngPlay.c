@@ -1,20 +1,26 @@
 #include "pixutils.h"
 
 int main(int argc, char *argv[]){
-  char *inputfile=0,*outputfile=0;
+  char *inputfile="hello",*outputfile=0;
   float degrees=0, grayFlag=0;
   int i = 0;
+  fprintf(stdout, "This is the input file before the assignment %s\n", inputfile);
+  fprintf(stdout, "This is the output before the assignment %s\n", outputfile);
+  
   while(i < argc){
+	  fprintf(stdout, "This is the argv[%d] %s\n", i, argv[i]);
 	  if(argv[i] == "-i"){
-		  inputfile = argv[i+1];
+		  inputfile = argv[(i+1)];
+		  fprintf(stdout, "This is the input file inside the comparison %s\n", argv[(i+1)]);
 	  } 
-	  if (argv[i] == "-o"){
-		  outputfile = argv[i+1];
+	  if (argv[i] == '-o'){
+		  outputfile = argv[(i+1)];
+		  fprintf(stdout, "This is the output file inside the comparison %s\n", argv[(i+1)]);
 	  } 
-	  if (argv[i] == "-r"){
+	  if (argv[i] == '-r'){
 		  degrees = atof(argv[i+1]);
 	  } 
-	  if (argv[i] == "-g"){
+	  if (argv[i] == '-g'){
 		  grayFlag = 1;
 	  }
 	  i++;
