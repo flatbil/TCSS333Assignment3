@@ -128,8 +128,8 @@ void pixMap_rotate (pixMap *p, float theta){
 	    //calculate the old coordinates rotx roty by rotating by -theta and using the formula described here
 	    //http://stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
 	    //use the answer from stackoverflowery
-	      float s = sin(degreeToRadians(-theta));
-		  float c = cos(degreesToRadians(-theta));
+	      float s = sin(-theta*3.14/180);
+		  float c = cos(-theta*3.14/180);
 
   // translate point back to origin:
 			p->width -= ox;
@@ -149,14 +149,16 @@ void pixMap_rotate (pixMap *p, float theta){
      //    float roty = -(s*(x-ox) + c * (oy-y) - oy);
 	    
  	   //round the coordinates to the nearest integer in your calculations (add 0.5 and cast to integer)
- 	   rotx = (int) (rotx + 0.5);
- 	   roty = (int) (roty + 0.5);	
+ 	   int introtx;
+ 	   int introty;
+ 	   introtx = (int) ((float)rotx + 0.5);
+ 	   introty = (int) ((float)roty + 0.5);	
 	
 	    //if old coordinates are within the height and width limits
-	    if(x-rotx > 0 && y-roty > 0){
+	    if(x-introtx > 0 && y-introty > 0){
 	      //copy the pixel at the old coords to the pixel to the temporary copy using memcpy
 	      //i.e. 	memcpy(temp->pixArray[y]+x,p->pixArray[roty]+rotx,sizeof(rgba))
-	      memcpy(temp->pixArray[y]+x,p->pixArray[roty]+rotx,sizeof(rgba));
+	      memcpy(temp->pixArray[y]+x,p->pixArray[introty]+introtx,sizeof(rgba));
 	    //
 	    }
 	    
